@@ -1,0 +1,1 @@
+Egyptian Rafter game in Ruby. Used for simulating new strategies.
