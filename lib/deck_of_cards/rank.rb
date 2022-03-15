@@ -22,6 +22,10 @@ class Rank
     @rank = rank
   end
 
+  def to_i
+    
+  end
+
   def <=>(other)
     return 0 if rank == other.rank
 

@@ -3,7 +3,7 @@ class Deck
 
   def initialize(full: false)
     if full
-      @cards = Rank::RANKS.flat_map do |rank|
+      @cards = Rank::RANKS.keys.flat_map do |rank|
         Suit::SUITS.map do |suit|
           Card.new(rank, suit)
         end

@@ -24,6 +24,10 @@ class DeckOfCards::LinkedList < DataStructures::LinkedList
   def tens?
     return false unless @size >= 2
 
-    @last.data
+    Rank::RANKS[@last.data.rank] + Rank::RANKS[@last.previous.data.rank] == 10
+  end
+
+  def straights?
+    return false unless @size >= 3
   end
 end
