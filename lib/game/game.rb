@@ -1,6 +1,6 @@
 class Game
   def initialize(players, type)
-    @players = CircularList.parse players
+    @players = DataStructures::LinkedList.new players
     @active_stack = Deck.new
     @winner = nil
     @type = type
@@ -24,7 +24,7 @@ class Game
   private
 
   def remove_losers!
-    losers = @players.full_scan { |player| }
+    losers = @players.each { |player| }
   end
 
   def shuffle_and_deal!

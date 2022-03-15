@@ -3,14 +3,27 @@ module DataStructures
   # Implements a doubly Linked List.
   class LinkedList
 
-    LLNode = Struct.new(:data, :next, :previous)
+    class LLNode
+      attr_accessor :data, :next, :previous
 
-    attr_accessor :first
-    attr_accessor :last
-    attr_accessor :size
+      def initialize(data, next_item, previous)
+        @data = data
+        @next = next_item
+        @previous = previous
+
+      end
+
+      def ==(other)
+        return false unless other.is_a? LLNode
+        data == other.data && @next == other.next && previous == other.previous
+      end
+    end
+
+
+    attr_accessor :first, :last, :size
     attr_reader :current
 
-    alias :length :size
+    alias length size
 
     # Returns a new LinkedList
     #
@@ -34,7 +47,11 @@ module DataStructures
     end
 
     def increment_current!
-      @current = @current.next
+      if @current == @last
+        @current = @first
+      else
+        @current = @current.next
+      end
     end
 
     # Element Reference - Returns the element at +index+
@@ -95,6 +112,16 @@ module DataStructures
       temp_current = @first
       @size.times do
         block.call temp_current.data
+        temp_current = temp_current.next
+      end
+    end
+
+    def filter(&block)
+      temp_arr = []
+      temp_current = @first
+      @size.times do
+        filter = block.call temp_current.data
+        temp_arr.append(temp_current.data) if filter
         temp_current = temp_current.next
       end
     end
@@ -180,9 +207,9 @@ module DataStructures
 
     # Returns a string representation of the list
     def to_s
-      self.to_a.to_s
+      to_a.to_s
     end
 
-  end # LinkedList
+  end
 
-end # Biopsy
+end
