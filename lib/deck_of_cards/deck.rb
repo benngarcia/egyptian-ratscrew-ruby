@@ -1,6 +1,6 @@
 class Deck
   attr_reader :cards
-  def initialize(full)
+  def initialize(full=true)
     if full
       @cards = Rank::RANKS.flat_map do |rank|
         Suit::SUITS.map do |suit|

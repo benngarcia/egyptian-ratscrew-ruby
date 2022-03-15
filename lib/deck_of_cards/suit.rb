@@ -1,4 +1,5 @@
 class Suit
+  include Comparable
 	SUIT = %i[
     spade
     heart

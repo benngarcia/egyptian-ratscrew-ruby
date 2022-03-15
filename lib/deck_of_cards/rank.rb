@@ -1,4 +1,5 @@
 class Rank
+  include Comparable
   RANKS = %i[
     ace
     king
