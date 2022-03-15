@@ -1,6 +1,6 @@
 class Suit
   include Comparable
-	SUIT = %i[
+	SUITS = %i[
     spade
     heart
     diamond
