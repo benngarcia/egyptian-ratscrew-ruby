@@ -24,7 +24,12 @@ class Game
   private
 
   def remove_losers!
-    losers = @players.each { |player| }
+    losers = @players.filter { |player| player.hand.empty? }
+    losers.each { |loser| @players.remove(loser) }
+  end
+
+  def check_for_winners!
+    @winner = @players.first if @players.size == 1
   end
 
   def shuffle_and_deal!

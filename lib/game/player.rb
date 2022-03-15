@@ -14,4 +14,12 @@ class Player
   def play_card!
     @hand.draw
   end
+
+  def slaps_for?(cards_linked_list)
+    case strategy
+    when Strategies::REFLEXIVE
+    when Strategies::QUALITATIVE
+    when Strategies::QUANTITATIVE
+    end
+  end
 end

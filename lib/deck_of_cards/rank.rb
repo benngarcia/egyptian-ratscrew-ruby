@@ -1,20 +1,20 @@
 class Rank
   include Comparable
-  RANKS = %i[
-    ace
-    king
-    queen
-    jack
-    ten
-    nine
-    eight
-    seven
-    six
-    five
-    four
-    three
-    two
-  ].freeze
+  RANKS = {
+    ace: 1,
+    two: 2,
+    three: 3,
+    four: 4,
+    five: 5,
+    six: 6,
+    seven: 7,
+    eight: 8,
+    nine: 9,
+    ten: 10,
+    jack: 11,
+    queen: 12,
+    king: 13
+  }.freeze
 
   attr_reader :rank
 
@@ -23,7 +23,8 @@ class Rank
   end
 
   def <=>(other)
-		return 0 if rank == other.rank
-		RANKS.index(rank) < RANKS.index(other.rank) ? 1 : -1
+    return 0 if rank == other.rank
+
+    RANKS[rank] < RANKS[other.rank] ? 1 : -1
   end
 end
