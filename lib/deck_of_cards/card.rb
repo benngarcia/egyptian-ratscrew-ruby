@@ -18,4 +18,18 @@ class Card
 
     rank < other.rank ? 1 : -1
   end
+
+  # convenience methods
+
+  def king?
+    @rank.rank == :king
+  end
+
+  def queen?
+    @rank.rank == :queen
+  end
+
+  def face_card?
+    %i[jack queen king ace].include? @rank.rank
+  end
 end

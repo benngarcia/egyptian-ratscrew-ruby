@@ -1,3 +1,3 @@
-task :test_1000000_games do
+task :test_10_games do
   ruby "test.rb"
 end

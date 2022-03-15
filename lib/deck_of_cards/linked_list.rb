@@ -1,33 +1,63 @@
 # This is pretty gross organizational-wise. But extending the standard LinkedList
-# To optimally check for DeckOfCards Winning conditions
+# To more optimally check for DeckOfCards Winning conditions
 # Also I will be violating SOLID principles here - Sorry CS professors :(
-class DeckOfCards::LinkedList < DataStructures::LinkedList
+module DeckOfCards
+  class LinkedList < DataStructures::LinkedList
 
-  def reflexive_slap?
-    doubles? || sandwiches? || tens? || straights? || top_bottom? || marriage?
-  end
-  
-  private
+    def reflexive_slap?
+      doubles? || sandwiches? || tens? || straights? || top_bottom? || marriage?
+    end
 
-  def doubles?
-    return false unless @size >= 2
+    def quantitative_slap?
+      @size >= 4
+    end
 
-    @last.data == @last.previous.data
-  end
+    def qualitative_slap?
+      contains_face_card?
+    end
 
-  def sandwiches?
-    return false unless @size >= 3
+    private
 
-    @last.data == @last.previous.previous.data
-  end
+    def doubles?
+      return false unless @size >= 2
 
-  def tens?
-    return false unless @size >= 2
+      @last.data == @last.previous.data
+    end
 
-    Rank::RANKS[@last.data.rank] + Rank::RANKS[@last.previous.data.rank] == 10
-  end
+    def sandwiches?
+      return false unless @size >= 3
 
-  def straights?
-    return false unless @size >= 3
+      @last.data == @last.previous.previous.data
+    end
+
+    def tens?
+      return false unless @size >= 2
+
+      @last.data.rank.to_i + @last.previous.data.rank.to_i == 10
+    rescue NoMethodError
+      binding.pry
+    end
+
+    def straights?
+      return false unless @size >= 3
+
+      arr = [@last.data.rank.to_i, @last.previous.data.rank.to_i, @last.previous.previous.data.rank.to_i].sort
+      # Credit https://stackoverflow.com/a/32974038/12817385
+      arr.each_cons(2).all? { |a, b| b == a + 1 }
+    end
+
+    def top_bottom?
+      return false unless @size >= 2
+
+      @first.data == @last.data
+    end
+
+    def marriage?
+      (@last.data.king? && @last.previous.data.queen?) || (@last.data.queen? && @last.previous.data.king?)
+    end
+
+    def contains_face_card?
+      @contains_face_card ||= any?(&:face_card?)
+    end
   end
 end

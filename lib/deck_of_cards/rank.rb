@@ -23,12 +23,12 @@ class Rank
   end
 
   def to_i
-    
+    RANKS[rank]
   end
 
   def <=>(other)
     return 0 if rank == other.rank
 
-    RANKS[rank] < RANKS[other.rank] ? 1 : -1
+    to_i < other.to_i ? 1 : -1
   end
 end

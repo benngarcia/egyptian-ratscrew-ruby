@@ -1,7 +1,6 @@
 class Game
   def initialize(players, type)
-    @players = DataStructures::LinkedList.new players
-    @active_stack = Deck.new
+    @players = DataStructures::LinkedList.new(*players)
     @winner = nil
     @type = type
 
@@ -9,11 +8,13 @@ class Game
   end
 
   def run_game!
-    run_round!
+    run_round! until @winner
+    binding.pry
+    @winner
   end
 
   def run_round!
-    round = Round.new(@players)
+    round = Round.new(@players, @type)
     round.play do |winner, active_stack|
       winner.hand.add active_stack
     end
