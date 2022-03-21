@@ -9,7 +9,7 @@ module DeckOfCards
     end
 
     def quantitative_slap?
-      @size >= 4
+      @size >= 2
     end
 
     def qualitative_slap?

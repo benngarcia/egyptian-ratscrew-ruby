@@ -28,7 +28,7 @@ class Player
     when Strategies::QUALITATIVE
       cards_linked_list.qualitative_slap?
     when Strategies::QUANTITATIVE
-      cards_linked_list.qualitative_slap?
+      cards_linked_list.quantitative_slap?
     end
   end
 end

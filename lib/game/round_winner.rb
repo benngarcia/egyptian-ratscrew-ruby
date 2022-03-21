@@ -12,14 +12,14 @@ class RoundWinner
     # Implement logic for player type Enums and Game type here
     case @game_type
     when GameTypes::CONTROLLED
-      # reflexive, other = @slappers.partition(&:reflexive?)
+      reflexive, other = @slappers.partition(&:reflexive?)
     when GameTypes::PROBABILISTIC
       reflexive, other = @slappers.partition(&:reflexive?)
     end
 
-    random_number.rand(0..1).zero? ? reflexive.first : other.first
-    # return other.first if other.any?
+    # random_number.rand(0..1).zero? ? reflexive.first : other.first
+    return other.first if other.any?
 
-    # reflexive.first
+    reflexive.first
   end
 end
