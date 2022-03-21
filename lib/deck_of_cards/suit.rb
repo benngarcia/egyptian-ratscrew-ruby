@@ -14,6 +14,7 @@ class Suit
 
   def <=>(other)
 		return 0 if suit == other.suit
+    
 		SUITS.index(suit) < SUITS.index(other.suit) ? 1 : -1
   end
 end

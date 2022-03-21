@@ -2,6 +2,13 @@ class Card
   include Comparable
   attr_reader :rank, :suit
 
+  FACE_SUIT_TURNS = {
+    jack: 1,
+    queen: 2,
+    king: 3,
+    ace: 4
+  }.freeze
+
   def initialize(rank, suit)
     @rank = Rank.new(rank)
     @suit = Suit.new(suit)
@@ -30,6 +37,10 @@ class Card
   end
 
   def face_card?
-    %i[jack queen king ace].include? @rank.rank
+    FACE_SUIT_TURNS.keys.include? @rank.rank
+  end
+
+  def turns_left_from_face_card
+    FACE_SUIT_TURNS[@rank.rank]
   end
 end
