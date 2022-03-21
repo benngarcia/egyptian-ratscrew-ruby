@@ -93,6 +93,9 @@ module DataStructures
     # All nodes +:index+ and above get moved along one.
     def insert(index, data)
       old_node = @first
+      return unshift(data) if index.zero?
+      return push(data) if index == @size
+
       index.times do
         old_node = old_node.next
       end
@@ -105,6 +108,9 @@ module DataStructures
     # Delete the node at +:index+
     def delete(index)
       temp_current = @first
+      return shift if index.zero?
+      return pop if index == (@size - 1)
+
       index.times do
         temp_current = temp_current.next
       end

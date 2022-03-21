@@ -34,8 +34,6 @@ module DeckOfCards
       return false unless @size >= 2
 
       @last.data.rank.to_i + @last.previous.data.rank.to_i == 10
-    rescue NoMethodError
-      binding.pry
     end
 
     def straights?

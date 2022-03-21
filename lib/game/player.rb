@@ -20,10 +20,11 @@ class Player
   end
 
   def slaps_for?(cards_linked_list)
+    return true if cards_linked_list.reflexive_slap?
     
     case strategy
     when Strategies::REFLEXIVE
-      cards_linked_list.reflexive_slap?
+      # cards_linked_list.reflexive_slap?
     when Strategies::QUALITATIVE
       cards_linked_list.qualitative_slap?
     when Strategies::QUANTITATIVE

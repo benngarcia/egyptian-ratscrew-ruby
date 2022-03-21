@@ -9,6 +9,7 @@ class Round
 
   def play(&block)
     play_card! until @winner
+
     block.call @winner, @cards_played.to_a
   end
 
@@ -20,8 +21,8 @@ class Round
     return if card.nil? # Move to next player if current player has no cards left
 
     # Yes, this has a different public interface than Deck.... Sowwy :(
-    @cards_played.push(*card)
 
+    @cards_played.push(*card)
     # No more calculations if size < 2
     return if @cards_played.size < 2
 

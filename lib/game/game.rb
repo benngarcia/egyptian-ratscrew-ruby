@@ -9,14 +9,14 @@ class Game
 
   def run_game!
     run_round! until @winner
-    binding.pry
     @winner
   end
 
   def run_round!
     round = Round.new(@players, @type)
+
     round.play do |winner, active_stack|
-      winner.hand.add active_stack
+      winner.hand.add(*active_stack)
     end
     remove_losers!
     check_for_winners!
@@ -30,7 +30,7 @@ class Game
   end
 
   def check_for_winners!
-    @winner = @players.first if @players.size == 1
+    @winner = @players.first.data.strategy if @players.size == 1
   end
 
   def shuffle_and_deal!
