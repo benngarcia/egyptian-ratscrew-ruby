@@ -16,6 +16,7 @@ class Round
 
   private
 
+  # This is literally so gross lol - sorry if you're trying to understand what's going on.
   def play_card!
     card = @players.current_player.hand.draw
     if card.nil?
