@@ -9,7 +9,7 @@ module DeckOfCards
     end
 
     def quantitative_slap?
-      @size >= 2
+      @size >= 4
     end
 
     def qualitative_slap?
@@ -21,13 +21,13 @@ module DeckOfCards
     def doubles?
       return false unless @size >= 2
 
-      @last.data == @last.previous.data
+      @last.data.rank == @last.previous.data.rank
     end
 
     def sandwiches?
       return false unless @size >= 3
 
-      @last.data == @last.previous.previous.data
+      @last.data.rank == @last.previous.previous.data.rank
     end
 
     def tens?
@@ -47,7 +47,7 @@ module DeckOfCards
     def top_bottom?
       return false unless @size >= 2
 
-      @first.data == @last.data
+      @first.data.rank == @last.data.rank
     end
 
     def marriage?
