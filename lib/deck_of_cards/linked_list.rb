@@ -8,12 +8,12 @@ module DeckOfCards
       doubles? || sandwiches? || tens? || straights? || top_bottom? || marriage?
     end
 
-    def quantitative_slap?
+    def quantitative_slap?(quantity)
       @size >= 4
     end
 
-    def qualitative_slap?
-      contains_face_card?
+    def qualitative_slap?(include_ace)
+      contains_face_card?(include_ace)
     end
 
     private
@@ -54,8 +54,12 @@ module DeckOfCards
       (@last.data.king? && @last.previous.data.queen?) || (@last.data.queen? && @last.previous.data.king?)
     end
 
-    def contains_face_card?
-      @contains_face_card ||= any?(&:face_card?)
+    def contains_face_card?(include_ace)
+      if include_ace
+        @contains_face_card ||= any?(&:face_card?)
+      else
+        @contains_face_card ||= any?(&:royal_card?)
+      end
     end
   end
 end

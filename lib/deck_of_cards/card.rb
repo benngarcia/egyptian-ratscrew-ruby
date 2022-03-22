@@ -9,6 +9,12 @@ class Card
     ace: 4
   }.freeze
 
+  ROYAL_SUITS = %i[
+    jack
+    queen
+    king
+  ].freeze
+
   def initialize(rank, suit)
     @rank = Rank.new(rank)
     @suit = Suit.new(suit)
@@ -38,6 +44,10 @@ class Card
 
   def face_card?
     FACE_SUIT_TURNS.keys.include? @rank.rank
+  end
+
+  def royal_card?
+    ROYAL_SUITS.include? @rank.rank
   end
 
   def turns_left_from_face_card
