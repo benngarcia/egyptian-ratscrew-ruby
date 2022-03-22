@@ -15,6 +15,8 @@ class RoundWinner
       reflexive, other = @slappers.partition(&:reflexive?)
     when GameTypes::PROBABILISTIC
       reflexive, other = @slappers.partition(&:reflexive?)
+      # Generate an object containing info if the "other" players would have slapped based off of their strategies 
+      # before making random # assignment
     end
 
     # random_number.rand(0..1).zero? ? reflexive.first : other.first
