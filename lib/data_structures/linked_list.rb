@@ -108,12 +108,22 @@ module DataStructures
     # Delete the node at +:index+
     def delete(index)
       temp_current = @first
-      return shift if index.zero?
-      return pop if index == (@size - 1)
+
+      if index.zero?
+        increment_current! if @current == @first
+        return shift
+      end
+
+      if index == (@size - 1)
+        increment_current! if @current == @last
+        return pop
+      end
 
       index.times do
         temp_current = temp_current.next
       end
+      increment_current! if @current == temp_current
+      @size -= 1
       temp_current.previous.next = temp_current.next
       temp_current.next.previous = temp_current.previous
     end

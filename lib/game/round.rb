@@ -19,6 +19,7 @@ class Round
   # This is literally so gross lol - sorry if you're trying to understand what's going on.
   # In lieu of good code design, comments will do :')
   def play_card!
+
     # Player "draws" card
     card = @players.current_player.hand.draw
 
@@ -67,4 +68,4 @@ class Round
     end
     @turns_remaining -= 1 if @sudden_death
   end
-end 
+end
