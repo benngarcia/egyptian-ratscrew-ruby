@@ -60,8 +60,13 @@ class Round
     # If slap is legit slap (i.e. if a reflexive player would slap) assign a RoundWinner
     # else, slappers must burn
     if @cards_played.reflexive_slap?
+      
+      # Too lazy to implement LinkedList#partition :p
+      non_slappers = []
+      non_slappers = @players.filter { |player| !player.slaps_for?(@cards_played) } if @game_type == GameTypes::PROBABILISTIC
+
       # RoundWinner object only instantiated if winner exists
-      @winner = RoundWinner.new(slappers, @game_type).winner
+      @winner = RoundWinner.new(slappers, @game_type, non_slappers).winner
     else
       # burn
       slappers.each { |slapper| @cards_played.unshift(*slapper.hand.draw) }

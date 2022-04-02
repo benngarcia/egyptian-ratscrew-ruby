@@ -5,6 +5,7 @@ class Player
   def initialize(strategy)
     @strategy = strategy
     @hand = Deck.new
+    @high_level_strategy = assign_high_level_strategy
   end
 
   def deal_card(card)
@@ -20,12 +21,26 @@ class Player
   end
 
   def slaps_for?(cards_linked_list)
-    return true if cards_linked_list.reflexive_slap?
-
-    if strategy.to_s.start_with? 'qualitative'
+    case @high_level_strategy
+    when :qualitative
       cards_linked_list.qualitative_slap?(Strategies::QUALITATIVE.include_ace?(strategy))
-    elsif strategy.to_s.start_with? 'quantitative'
+    when :quantitative
       cards_linked_list.quantitative_slap?(Strategies::QUANTITATIVE.num_cards(strategy))
+    when :reflexive
+      cards_linked_list.reflexive_slap?
+    end
+  end
+
+  private
+
+  # String comparison can be expensive, if we're simulating millions of games, keep this in memory
+  def assign_high_level_strategy
+    if strategy.to_s.start_with? 'qualitative'
+      :qualitative
+    elsif strategy.to_s.start_with? 'quantitative'
+      :quantitative
+    else
+      :reflexive
     end
   end
 end

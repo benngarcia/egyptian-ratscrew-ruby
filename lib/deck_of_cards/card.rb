@@ -20,6 +20,10 @@ class Card
     @suit = Suit.new(suit)
   end
 
+  def to_s
+    "#{rank.rank} of #{suit.suit}s"
+  end
+
   def ==(other)
     return false unless other.is_a? Card
 

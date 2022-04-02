@@ -4,12 +4,16 @@
 module DeckOfCards
   class LinkedList < DataStructures::LinkedList
 
+    def to_s
+      each { |card| puts card.to_s }
+    end
+
     def reflexive_slap?
       doubles? || sandwiches? || tens? || straights? || top_bottom? || marriage?
     end
 
     def quantitative_slap?(quantity)
-      @size >= 4
+      @size >= quantity
     end
 
     def qualitative_slap?(include_ace)

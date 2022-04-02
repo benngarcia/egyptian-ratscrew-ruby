@@ -1,3 +1,3 @@
 task :test_10_games do
-  ruby "test.rb"
+  ruby 'test.rb'
 end

@@ -1,8 +1,13 @@
 # This is dumb, lol
 class Simulation
-  def initialize(sim_type, iteration_count)
+  # Default 100k iterations
+  def initialize(sim_type, iteration_count = 100_000)
     @sim_type = sim_type
     @iteration_count = iteration_count
+  end
+
+  def to_s
+    "Run #{@iteration_count} #{@sim_type} games with #{@num_players} players, #{strategies_stringified_helper} and the rest reflexive"
   end
 
   def all_faces_2_player
@@ -106,11 +111,15 @@ class Simulation
     players = gen_special_players_from_strategies!
 
     # Fill rest of game with Reflexives
-    players.append(Player.new(Strategies::REFLEXIVE)) until @players.size == @num_players
+    players.append(Player.new(Strategies::REFLEXIVE)) until players.size == @num_players
     players
   end
 
   def gen_special_players_from_strategies!
     @strategies.map { |strategy| Player.new(strategy) }
+  end
+
+  def strategies_stringified_helper
+    @strategies.map(&:to_s).join ', '
   end
 end
