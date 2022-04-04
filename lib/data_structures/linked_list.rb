@@ -130,6 +130,8 @@ module DataStructures
 
     # Calls the given block once for each element in +self+, passing
     # that element as a parameter
+    # I'm sad I forgot I could just include the Enumerable module
+    # Since I defined an each method. Rookie mistake :(
     def each(&block)
       temp_current = @first
       @size.times do
