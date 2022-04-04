@@ -1,9 +1,11 @@
 # This is dumb, lol
 class Simulation
   # Default 100k iterations
-  def initialize(sim_type, iteration_count = 100_000)
+  def initialize(sim_type:, strategies:, player_count:, iteration_count: 100_000)
     @sim_type = sim_type
     @iteration_count = iteration_count
+    @strategies = strategies
+    @num_players = player_count
   end
 
   def to_s
