@@ -33,5 +33,5 @@ options:
    
 example command
   ```
-  rake game:simulate -- --playercount=4 --probablistic=true --specialplayers=Strategies::QUALITATIVE::ALL_FACES,Strategies::QUANTITATIVE::THREECARD --gameiterations=100 --winpercentage=90 burnamount=2
+  rake game:simulate -- --playercount=4 --probablistic=true --specialplayers=Strategies::QUALITATIVE::ALL_FACES,Strategies::QUANTITATIVE::THREECARD --gameiterations=100 --winpercentage=90 --burnamount=2
   ```
