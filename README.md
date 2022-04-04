@@ -8,17 +8,17 @@ To run:
 run rake game:simulate [options]
 
 options: 
-  --playercount=< num players >
+  --playercount=num players 
   
-  --probablistic=< true or false >
+  --probablistic=true or false
   
-  --specialplayers=<comma-seperated (no spaces) list of players (list of available special players below>
+  --specialplayers=comma-seperated (no spaces) list of players (list of available special players below)
   
-  --gameiterations=<numgames> *optional (default 100,000)
+  --gameiterations=numgames *optional (default 100,000)
   
-  --winpercentage=<0-100> *optional (default 75, only relevant if probabilistic=true)
+  --winpercentage=0-100 *optional (default 75, only relevant if probabilistic=true)
   
-  --burnamount=<numcardstoburn> *optional (default 1)
+  --burnamount=numcardstoburn *optional (default 1)
  
  
  List of available players
