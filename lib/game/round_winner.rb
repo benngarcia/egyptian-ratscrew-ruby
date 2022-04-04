@@ -1,8 +1,8 @@
+require 'securerandom'
 class RoundWinner
   def initialize(slappers, game_type, non_slappers = [])
     @slappers = slappers
     @game_type = game_type
-    @random = Random.new(Time.now.to_i)
     @non_slappers = non_slappers
   end
 
@@ -52,7 +52,7 @@ class RoundWinner
 
   # Returns either param 1 or param 2, param 1 $strategy_win_percentage of the time, param 2 (100 - $strategy_win_percentage) of the time
   def determine_winner(strategy_winner, strategy_loser)
-    random_num = @random.rand(100)
+    random_num = ::SecureRandom.random_number(100)
     return strategy_winner if random_num < $strategy_win_percentage
 
     strategy_loser

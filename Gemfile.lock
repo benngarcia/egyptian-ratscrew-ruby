@@ -26,6 +26,7 @@ GEM
       rspec-support (~> 3.11.0)
     rspec-support (3.11.0)
     ruby-progressbar (1.11.0)
+    securerandom (0.2.0)
 
 PLATFORMS
   x86_64-darwin-19
@@ -38,6 +39,7 @@ DEPENDENCIES
   rake
   rspec
   ruby-progressbar
+  securerandom (~> 0.2.0)
 
 BUNDLED WITH
    2.3.9
