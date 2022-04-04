@@ -8,9 +8,9 @@ To run:
 run rake game:simulate [options]
 
 options: 
-  --playercount=<numplayers>
+  --playercount=< num players >
   
-  --probablistic=<true or false>
+  --probablistic=< true or false >
   
   --specialplayers=<comma-seperated (no spaces) list of players (list of available special players below>
   
