@@ -1,11 +1,10 @@
 require 'optparse'
 require 'pry'
-require './lib/game/simulation.rb'
 
 namespace :game do |args|
   desc 'Simulate some games with given flags: rake game:simulate'
   task :simulate do
-    Dir[File.join(__dir__, 'lib', '**', '*.rb')].sort.each { |file| load file }
+    Dir[File.join(__dir__, 'lib', '**', '*.rb')].sort.each { |file| load file } # Global load... lol
     options = {}
     OptionParser.new(args) do |opts|
       opts.banner = 'Usage: rake game:simulate [options]'
@@ -33,10 +32,15 @@ namespace :game do |args|
 
     iteration_count = options[:game_iterations]
 
-    special_players = options[:special_players].map { |player| Object.const_get player }
+    begin
+      special_players = options[:special_players].map { |player| Object.const_get player }
+    rescue NameError
+      puts 'special player names incorrectly :('
+      exit
+    end
 
     if special_players.size > player_count
-      puts "too many special players"
+      puts 'too many special players'
       exit 1
     end
 
@@ -47,7 +51,7 @@ namespace :game do |args|
     end
 
     final_stats = simulation.run!
-    puts "#{simulation.to_s} #{final_stats}"
+    puts "#{simulation} #{final_stats}"
     exit
   end
 end

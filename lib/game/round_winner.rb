@@ -43,6 +43,8 @@ class RoundWinner
       seventy_five_twenty_five_odds(reflexive_winner, non_slappers_winner)
     else # Other strategies preprogrammed to slap
       other_winner = other.sample # 75% chance winning for pre-emptive slapping
+      return other_winner if reflexive.empty?
+
       reflexive_winner = reflexive.sample # reflexives gotta chance tho!\
       seventy_five_twenty_five_odds(other_winner, reflexive_winner)
     end
@@ -54,10 +56,12 @@ class RoundWinner
     # and then just check if value is last value, return twenty_five, else return seventy_five
     # too lazy to make sure this works tho
     selection_array = []
-    9.times do
+    3.times do
       selection_array.append seventy_five
     end
-    selection_array.append twenty_five
+    2.times do
+      selection_array.append twenty_five
+    end
     selection_array.sample
   end
 end
