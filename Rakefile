@@ -44,7 +44,7 @@ namespace :game do |args|
 
     $burn_amount = options[:burn_amount]
 
-    $burn_amount = options[:burn_amount] if $burn_amount.nil?
+    $burn_amount = 1 if $burn_amount.nil?
 
     begin
       special_players = options[:special_players].map { |player| Object.const_get player }
