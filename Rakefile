@@ -23,6 +23,9 @@ namespace :game do |args|
       opts.on('--winpercentage=WINPERCENTAGE', 'select winPercentage as a winning percentage out of 100', Integer) do |win_percentage|
         options[:win_percentage] = win_percentage
       end
+      opts.on('--burnamount=BURNAMOUNT', 'Number of cards to burn per bad slap', Integer) do |burn_amount|
+        options[:burn_amount] = burn_amount
+      end
       opts.on('-h', '--help', "Help") do
         puts opts
         exit
@@ -38,6 +41,10 @@ namespace :game do |args|
     $strategy_win_percentage = options[:win_percentage]
 
     $strategy_win_percentage = 75 if $strategy_win_percentage.nil?
+
+    $burn_amount = options[:burn_amount]
+
+    $burn_amount = options[:burn_amount] if $burn_amount.nil?
 
     begin
       special_players = options[:special_players].map { |player| Object.const_get player }

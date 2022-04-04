@@ -26,8 +26,8 @@ class Round
     # If the players hand is empty, calling .draw will return nil. So, move to the next player.
     if card.nil?
       @players.increment_current!
-      if @cards_played == 52 # If it's full... LOL
-        @winner = RoundWinner.new(@players, @game_type).winner
+      if @cards_played.size == 52 # If it's full... LOL
+        @winner = RoundWinner.new(@players.to_a, @game_type).winner
       end
       return
     elsif card.face_card?
@@ -70,7 +70,9 @@ class Round
       @winner = RoundWinner.new(slappers, @game_type, non_slappers).winner
     else
       # burn
-      slappers.each { |slapper| @cards_played.unshift(*slapper.hand.draw) }
+      $burn_amount.times do
+        slappers.each { |slapper| @cards_played.unshift(*slapper.hand.draw) }
+      end
     end
     @turns_remaining -= 1 if @sudden_death
   end
