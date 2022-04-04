@@ -60,9 +60,9 @@ module DeckOfCards
 
     def contains_face_card?(include_ace)
       if include_ace
-        @contains_face_card ||= any?(&:face_card?)
+        @contains_face_card ||= any_but_last?(&:face_card?)
       else
-        @contains_face_card ||= any?(&:royal_card?)
+        @contains_face_card ||= any_but_last?(&:royal_card?)
       end
     end
   end

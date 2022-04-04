@@ -20,6 +20,9 @@ namespace :game do |args|
       opts.on('-sp', '--specialplayers=SPECIALPLAYERS', 'put Array of Special Players to be included', Array) do |special_players|
         options[:special_players] = special_players
       end
+      opts.on('--winpercentage=WINPERCENTAGE', 'select winPercentage as a winning percentage out of 100', Integer) do |win_percentage|
+        options[:win_percentage] = win_percentage
+      end
       opts.on('-h', '--help', "Help") do
         puts opts
         exit
@@ -31,6 +34,10 @@ namespace :game do |args|
     player_count = options[:player_count]
 
     iteration_count = options[:game_iterations]
+
+    $strategy_win_percentage = options[:win_percentage]
+
+    $strategy_win_percentage = 75 if $strategy_win_percentage.nil?
 
     begin
       special_players = options[:special_players].map { |player| Object.const_get player }

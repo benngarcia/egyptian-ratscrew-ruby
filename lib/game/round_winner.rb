@@ -40,28 +40,21 @@ class RoundWinner
     if other.empty? # Others are not pre-programmed to slap
       reflexive_winner = reflexive.sample # Get one "Reflexive winner" from reflexives
       non_slappers_winner = @non_slappers.sample # Get one "Non Reflexive" "winner"
-      seventy_five_twenty_five_odds(reflexive_winner, non_slappers_winner)
+      determine_winner(reflexive_winner, non_slappers_winner)
     else # Other strategies preprogrammed to slap
       other_winner = other.sample # 75% chance winning for pre-emptive slapping
       return other_winner if reflexive.empty?
 
       reflexive_winner = reflexive.sample # reflexives gotta chance tho!\
-      seventy_five_twenty_five_odds(other_winner, reflexive_winner)
+      determine_winner(other_winner, reflexive_winner)
     end
   end
 
-  # Returns either param 1 or param 2, param 1 75% of the time, param 2 25% of the time
-  def seventy_five_twenty_five_odds(seventy_five, twenty_five)
-    # @random.rand(3) # This is what I would do if I didn't trust the ruby sample method so much lol
-    # and then just check if value is last value, return twenty_five, else return seventy_five
-    # too lazy to make sure this works tho
-    selection_array = []
-    3.times do
-      selection_array.append seventy_five
-    end
-    2.times do
-      selection_array.append twenty_five
-    end
-    selection_array.sample
+  # Returns either param 1 or param 2, param 1 $strategy_win_percentage of the time, param 2 (100 - $strategy_win_percentage) of the time
+  def determine_winner(strategy_winner, strategy_loser)
+    random_num = @random.rand(100)
+    return strategy_winner if random_num < $strategy_win_percentage
+
+    strategy_loser
   end
 end

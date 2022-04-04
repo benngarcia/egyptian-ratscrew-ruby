@@ -159,6 +159,17 @@ module DataStructures
       is_truthy
     end
 
+    # 
+    def any_but_last?(&block)
+      temp_current = @first
+      is_truthy = false
+      (@size - 1).times do
+        is_truthy ||= block.call temp_current.data
+        temp_current = temp_current.next
+      end
+      is_truthy
+    end
+
     # Append - Pushes the given object(s) on to the end of this
     # Linked List. The expression returns the list itself, so several
     # appends may be chained together. See also #pop for the opposite effect.
