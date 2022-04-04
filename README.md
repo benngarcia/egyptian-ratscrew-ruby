@@ -31,3 +31,7 @@ options:
   7. Strategies::QUANTITATIVE::SIXCARD
   * Note - The difference in --playercount and number of special players listed will be filled in with reflexive players
    
+example command
+  ```
+  rake game:simulate -- --playercount=4 --probablistic=true --specialplayers=Strategies::QUALITATIVE::ALL_FACES,Strategies::QUANTITATIVE::THREECARD --gameiterations=100 --winpercentage=90 burnamount=2
+  ```
