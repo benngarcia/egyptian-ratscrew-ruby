@@ -6,6 +6,7 @@ class Round
     @cards_played = DeckOfCards::LinkedList.new
     @game_type = game_type
     @sudden_death = false
+    @debug_count = 0
   end
 
   def play(&block)
@@ -19,13 +20,15 @@ class Round
   # This is literally so gross lol - sorry if you're trying to understand what's going on.
   # In lieu of good code design, comments will do :')
   def play_card!
-
     # Player "draws" card
     card = @players.current_player.hand.draw
 
     # If the players hand is empty, calling .draw will return nil. So, move to the next player.
     if card.nil?
       @players.increment_current!
+      if @cards_played == 52 # If it's full... LOL
+        @winner = RoundWinner.new(@players, @game_type).winner
+      end
       return
     elsif card.face_card?
       # Enter sudden death
@@ -51,7 +54,6 @@ class Round
       return
     end
 
-    # No more calculations if size < 2
     return if @cards_played.size < 2
 
     # Returns Array of Players who will slap for last card played
@@ -60,7 +62,6 @@ class Round
     # If slap is legit slap (i.e. if a reflexive player would slap) assign a RoundWinner
     # else, slappers must burn
     if @cards_played.reflexive_slap?
-      
       # Too lazy to implement LinkedList#partition :p
       non_slappers = []
       non_slappers = @players.filter { |player| !player.slaps_for?(@cards_played) } if @game_type == GameTypes::PROBABILISTIC
