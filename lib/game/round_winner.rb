@@ -40,14 +40,14 @@ class RoundWinner
     if other.empty? # Others are not pre-programmed to slap
       # Get one "Reflexive winner" from reflexives and then put the rest in non_winners
       reflexive_winner, reflexive_non_winners = reflexive.partition { |player| player == reflexive.sample } 
-      non_slappers_winner = @non_slappers.merge(reflexive_non_winners).sample # Get one winner from all other players
+      non_slappers_winner = @non_slappers.concat(reflexive_non_winners).sample # Get one winner from all other players
       determine_winner(reflexive_winner, non_slappers_winner)
     else # Other strategies preprogrammed to slap
        # partition from a random other winner
       other_winner, other_non_winners = other.partition { |player| player == other.partition }
       return other_winner if reflexive.empty?
 
-      reflexive_winner = reflexive.merge(other_non_winners).sample # reflexives gotta chance tho!\
+      reflexive_winner = reflexive.concat(other_non_winners).sample # reflexives gotta chance tho!\
       determine_winner(other_winner, reflexive_winner)
     end
   end
