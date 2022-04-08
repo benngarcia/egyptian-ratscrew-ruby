@@ -13,42 +13,44 @@ class RoundWinner
     # Implement logic for player type Enums and Game type here
     case @game_type
     when GameTypes::CONTROLLED
-      reflexive, other = @slappers.partition(&:reflexive?)
-      return controlled_winner(reflexive, other)
+      reflexives, strategy_players = @slappers.partition(&:reflexive?)
+      return controlled_winner(reflexives, strategy_players)
     when GameTypes::PROBABILISTIC
-      reflexive, other = @slappers.partition(&:reflexive?)
-      return probabilstic_winner(reflexive, other)
+      reflexives, strategy_players = @slappers.partition(&:reflexive?)
+      return probabilstic_winner(reflexives, strategy_players)
     end
 
-    # random_number.rand(0..1).zero? ? reflexive.first : other.first
-    return other.first if other.any?
+    # random_number.rand(0..1).zero? ? reflexives.first : strategy_players.first
+    return strategy_players.first if strategy_players.any?
 
-    reflexive.first
+    reflexives.first
   end
 
   private
 
-  # Assumes there will only be one non-reflexive strategy per controlled game
-  def controlled_winner(reflexive, other)
-    return other.first if other.any?
+  # Assumes there will only be one non-reflexives strategy per controlled game
+  def controlled_winner(reflexives, strategy_players)
+    _strategy_players_zero_cards, strategy_players = strategy_players.partition(&:empty_hand?)
+    return strategy_players.first if strategy_players.any?
 
-    reflexive.first
+    reflexives.sample
   end
 
   # I would do this differently if I need to optimize
-  def probabilstic_winner(reflexive, other)
-    if other.empty? # Others are not pre-programmed to slap
-      # Get one "Reflexive winner" from reflexives and then put the rest in non_winners
-      reflexive_winner, reflexive_non_winners = reflexive.partition { |player| player == reflexive.sample } 
-      non_slappers_winner = @non_slappers.concat(reflexive_non_winners).sample # Get one winner from all other players
-      determine_winner(reflexive_winner.first, non_slappers_winner)
-    else # Other strategies preprogrammed to slap
-       # partition from a random other winner
-      other_winner, other_non_winners = other.partition { |player| player == other.sample }
-      return other_winner.first if reflexive.empty?
+  def probabilstic_winner(reflexives, strategy_players)
+    strategy_players_zero_cards, strategy_players = strategy_players.partition(&:empty_hand?)
+    if strategy_players.empty? # strategy_players are not pre-programmed to slap
+      # Get one "reflexives winner" from reflexivess and then put the rest in non_winners
+      reflexives_winner, reflexives_non_winners = reflexives.partition { |player| player == reflexives.sample }
+      non_slappers_winner = @non_slappers.concat(reflexives_non_winners).concat(strategy_players_zero_cards).sample
+      determine_winner(reflexives_winner.first, non_slappers_winner)
+    else # strategy_players strategies preprogrammed to slap
+      # partition from a random strategy_players winner
+      strategy_players_winner, strategy_players_non_winners = strategy_players.partition { |player| player == strategy_players.sample }
+      return strategy_players_winner.first if reflexives.empty?
 
-      reflexive_winner = reflexive.concat(other_non_winners).sample # reflexives gotta chance tho!\
-      determine_winner(other_winner.first, reflexive_winner)
+      reflexives_winner = reflexives.concat(strategy_players_non_winners).concat(strategy_players_zero_cards).sample
+      determine_winner(strategy_players_winner.first, reflexives_winner)
     end
   end
 

@@ -31,6 +31,10 @@ class Player
     end
   end
 
+  def empty_hand?
+    @hand.empty?
+  end
+
   private
 
   # String comparison can be expensive, if we're simulating millions of games, keep this in memory
