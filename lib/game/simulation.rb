@@ -114,7 +114,7 @@ class Simulation
 
     # Fill rest of game with Reflexives
     players.append(Player.new(Strategies::REFLEXIVE)) until players.size == @num_players
-    players
+    players.shuffle!
   end
 
   def gen_special_players_from_strategies!

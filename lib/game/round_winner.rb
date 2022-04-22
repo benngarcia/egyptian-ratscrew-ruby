@@ -31,7 +31,7 @@ class RoundWinner
   # Assumes there will only be one non-reflexives strategy per controlled game
   def controlled_winner(reflexives, strategy_players)
     _strategy_players_zero_cards, strategy_players = strategy_players.partition(&:empty_hand?)
-    return strategy_players.first if strategy_players.any?
+    return strategy_players.sample if strategy_players.any?
 
     reflexives.sample
   end
@@ -41,12 +41,14 @@ class RoundWinner
     strategy_players_zero_cards, strategy_players = strategy_players.partition(&:empty_hand?)
     if strategy_players.empty? # strategy_players are not pre-programmed to slap
       # Get one "reflexives winner" from reflexivess and then put the rest in non_winners
-      reflexives_winner, reflexives_non_winners = reflexives.partition { |player| player == reflexives.sample }
+      temp_winner = reflexives.sample
+      reflexives_winner, reflexives_non_winners = reflexives.partition { |player| player == temp_winner }
       non_slappers_winner = @non_slappers.concat(reflexives_non_winners).concat(strategy_players_zero_cards).sample
       determine_winner(reflexives_winner.first, non_slappers_winner)
     else # strategy_players strategies preprogrammed to slap
       # partition from a random strategy_players winner
-      strategy_players_winner, strategy_players_non_winners = strategy_players.partition { |player| player == strategy_players.sample }
+      temp_winner = strategy_players.sample
+      strategy_players_winner, strategy_players_non_winners = strategy_players.partition { |player| player == temp_winner }
       return strategy_players_winner.first if reflexives.empty?
 
       reflexives_winner = reflexives.concat(strategy_players_non_winners).concat(strategy_players_zero_cards).sample
