@@ -1,5 +1,4 @@
-Egyptian Rafter game in Ruby. Used for simulating new strategies. Code Design kinda bad - if you want to test your own strategies I'll refactor for you just dm me on twitter lol.
-
+Egyptian Rafter game in Ruby. Used for simulating new strategies. If you'd like to implement a new strategy - dm me on twitter
 To run:
 
 1. Clone
