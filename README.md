@@ -1,5 +1,8 @@
 # Egyptian Rafter Game Simulation
 
+A CLI to simulate games of Egyptian Ratscrew, including potentially game-breaking strategies as listed below.
+If you want to know which strategies win under which conditions, you can also view the paper this repository was built for here: https://scholarspace.library.gwu.edu/concern/gw_etds/5425kb44d?locale=en
+
 ## Setup Instructions
 
 To simulate new strategies in the Egyptian Rafter game, follow these steps:
